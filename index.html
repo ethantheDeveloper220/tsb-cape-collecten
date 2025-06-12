@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Cape Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+        header {
+            background-color: #1a73e8;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .toggle-dark-mode, .back-to-top {
+            position: absolute;
+            top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #fff;
+            color: #1a73e8;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .toggle-dark-mode {
+            right: 1rem;
+        }
+        .back-to-top {
+            left: 1rem;
+            display: none;
+        }
+        .back-to-top.show {
+            display: block;
+        }
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .intro h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .form-section, .cape-section {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .dark-mode .form-section, .dark-mode .cape-section {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+        }
+        .form-section h2, .cape-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .form-group button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .form-group button:hover {
+            background-color: #1557b0;
+        }
+        .cape-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .cape-card {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .dark-mode .cape-card {
+            background-color: #444;
+        }
+        .cape-card h3 {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+        .cape-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0.5rem 0;
+            word-break: break-all;
+        }
+        .dark-mode .cape-card p {
+            color: #ccc;
+        }
+        .cape-card button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .cape-card button:hover {
+            background-color: #1557b0;
+        }
+        @media (max-width: 600px) {
+            .cape-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Roblox Cape Collection</h1>
+        <button class="toggle-dark-mode">Toggle Dark Mode</button>
+        <button class="back-to-top">Back to Top</button>
+    </header>
+    <main>
+        <section class="intro">
+            <h2>Cape Collection</h2>
+            <p>Browse and add your favorite Roblox capes!</p>
+        </section>
+        <section class="form-section">
+            <h2>Add Your Cape</h2>
+            <form id="cape-form">
+                <div class="form-group">
+                    <label for="cape-name">Cape Name</label>
+                    <input type="text" id="cape-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="cape-id">Cape ID</label>
+                    <input type="text" id="cape-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description (Optional)</label>
+                    <textarea id="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="Animal-Themed Capes">Animal-Themed Capes</option>
+                        <option value="Anime-Inspired Capes">Anime-Inspired Capes</option>
+                        <option value="Meme and Humor Capes">Meme and Humor Capes</option>
+                        <option value="Character and Celebrity Capes">Character and Celebrity Capes</option>
+                        <option value="Superhero and Pop Culture Capes">Superhero and Pop Culture Capes</option>
+                        <option value="Gaming and Fandom Capes">Gaming and Fandom Capes</option>
+                        <option value="Aesthetic and Design Capes">Aesthetic and Design Capes</option>
+                        <option value="Spooky and Dark-Themed Capes">Spooky and Dark-Themed Capes</option>
+                        <option value="Motivational and Attitude Capes">Motivational and Attitude Capes</option>
+                        <option value="Miscellaneous Capes">Miscellaneous Capes</option>
+                        <option value="Custom Category">Custom Category</option>
+                    </select>
+                </div>
+                <div class="form-group" id="custom-category-group" style="display: none;">
+                    <label for="custom-category">Custom Category Name</label>
+                    <input type="text" id="custom-category">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Add Cape</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="cape-section">
+            <h2>Animal-Themed Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Cat</h3><p>ID: 17473115396</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Cat Motion</h3><p>ID: 16978346354</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>War Cat</h3><p>ID: 15706556918</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Glow Eyes Cat</h3><p>ID: 2752828722</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Human Cat</h3><p>ID: 93559903487460, 101314120780371, 123238703540042, 86221009863223, 87580034573764, 99932906731359</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Silly Cat</h3><p>ID: 11176073582</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Cat Laugh</h3><p>ID: 16541142630</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Regular Dog</h3><p>ID: 10316546906</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Dog UWU With Watermelon on Head</h3><p>ID: 15477476286</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Divine Dog</h3><p>ID: 18244416342</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Standing Cat</h3><p>ID: 105744175699171</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Surprised Dog</h3><p>ID: 112418816463182</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Chill Dog Smiling with Flower</h3><p>ID: 125929990250560</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Anime-Inspired Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Annie From AOT</h3><p>ID: 5897478498</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>One Piece Pirates Icon</h3><p>ID: 9478562327</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Luffy x Zoro</h3><p>ID: 12000450437</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Maki Cape</h3><p>ID: 18594992166</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Anime-Inspired Cape</h3><p>ID: 18331863884</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Anime Girl Cape</h3><p>ID: 18326121818</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Gojo</h3><p>ID: 108810249567971, 9242918232</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Ai Hoshino</h3><p>ID: 16846082478</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Female Sukuna</h3><p>ID: 15749718718</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Anime Girl</h3><p>ID: 13366350021</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Himiko Yumeno</h3><p>ID: 13294372563</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Female Gojo</h3><p>ID: 138177109655007</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Mahoraga</h3><p>ID: 103859317191196</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Sukuna</h3><p>ID: 109601228225374</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Prison Realm</h3><p>ID: 97808385301949</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Meme and Humor Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>This Prank Gonna Blow Up Hard</h3><p>ID: 15550964504</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>This Prank Gonna Blow Up Hard V2</h3><p>ID: 11792652694</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>How Do I Type</h3><p>ID: 7279137105</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Laughing Emoji</h3><p>ID: 12350783424</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>I Saw That</h3><p>ID: 13820023455</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Nah I’d Win</h3><p>ID: 125746326989714, 70963426977027, 16449927706</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Nah I’d Solo</h3><p>ID: 18848582136</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Balls Out?</h3><p>ID: 15552657138</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>I Farted</h3><p>ID: 79518633</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>This Is Deep and I’m 14</h3><p>ID: 8067050254</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>E-girl Divorced Me and Took My House</h3><p>ID: 9948978354</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Douchebag Who Rides Motorcycles and Listens to EDM</h3><p>ID: 12165265674</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Man Face</h3><p>ID: 14779355485, 100741777677999</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Go Outside :)</h3><p>ID: 83949301574372</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>How To Be Normal</h3><p>ID: 10337220514</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Wait I’m Goated</h3><p>ID: 14267163693</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Humbled</h3><p>ID: 16951980292</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>What a Loser</h3><p>ID: 18246711338</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Kuru Kuru</h3><p>ID: 13452132047</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Gyat</h3><p>ID: 16714037585</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Character and Celebrity Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Hello Kitty</h3><p>ID: 6243239316</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>iShowSpeed</h3><p>ID: 87731142159379</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Carl the NPC</h3><p>ID: 94559778223291</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>KSI</h3><p>ID: 15130434272</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Scary Albert</h3><p>ID: 5752260537</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Caseoh Planet</h3><p>ID: 18618253864</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Superhero and Pop Culture Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Superman Cape</h3><p>ID: 18331872496</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Squidward Tentacles Cape</h3><p>ID: 18331884414</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Megamind</h3><p>ID: 17420228479</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Gaming and Fandom Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Chess</h3><p>ID: 17344452973</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>/Kill</h3><p>ID: 14795937315</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>I Found</h3><p>ID: 14120514182</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Furry Killer Cape</h3><p>ID: 16530114480</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Black “GG GET BETTER” Cape</h3><p>ID: 123238703540042</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Black “EAT SLEEP T-S-B REPEAT” Cape</h3><p>ID: 86221009863223</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Black “NEVER BACK DOWN! NEVER WHAT?” Cape</h3><p>ID: 87580034573764</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Aesthetic and Design Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Apple</h3><p>ID: 14117485728</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Red Cloud Cape</h3><p>ID: 105611516231431</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Porsche Cape</h3><p>ID: 105611516231431</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Red Floral Cape</h3><p>ID: 71477650357899</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>White Wings on a Black Cape</h3><p>ID: 77237218800334</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Blue Eyes on a Black Cape</h3><p>ID: 116725919026537</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Black and White Cityscape Cape</h3><p>ID: 93559903487460</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Black “PIXIE” Cape</h3><p>ID: 101314120780371</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Blue Cape</h3><p>ID: 18331899197</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Crowned</h3><p>ID: 18469626072</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Spooky and Dark-Themed Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Smile in the Dark</h3><p>ID: 9182757465</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>White Clown Face Cape</h3><p>ID: 99932906731359</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Mewing Snowman</h3><p>ID: 109494983493565</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Motivational and Attitude Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Council</h3><p>ID: 15246477757</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Ez</h3><p>ID: 17661536588</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Fist</h3><p>ID: 16890430248</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Guts</h3><p>ID: 18389836149</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Sit</h3><p>ID: 18834409218</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>My Cape</h3><p>ID: 18875390085</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+
+        <section class="cape-section">
+            <h2>Miscellaneous Capes</h2>
+            <div class="cape-grid">
+                <div class="cape-card"><h3>Pilot Messed Up</h3><p>ID: 14117348631</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Comp</h3><p>ID: 15306466049</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Toxic Russian Kid</h3><p>ID: 17743491500</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Crescent</h3><p>ID: 18253018206</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Garou Cape</h3><p>ID: 17663506040</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 1</h3><p>ID: 77581345224596</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 2</h3><p>ID: 82479272894058</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 3</h3><p>ID: 140356676122796</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 4</h3><p>ID: 117701455853482</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 5</h3><p>ID: 71730844628905</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 6</h3><p>ID: 74590642137838</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 7</h3><p>ID: 89438866421623</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 8</h3><p>ID: 122913085523066</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 9</h3><p>ID: 88281034405919</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 10</h3><p>ID: 116038825514711</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 11</h3><p>ID: 73288439192077</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 12</h3><p>ID: 125766601690390</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 13</h3><p>ID: 78152738365255</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 14</h3><p>ID: 108604760570066</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 15</h3><p>ID: 94986960817614</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 16</h3><p>ID: 91740012412343</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 17</h3><p>ID: 18779858530</p><button class="copy-id">Copy ID</button></div>
+                <div class="cape-card"><h3>Unnamed Cape 18</h3><p>ID: 92764850209343</p><button class="copy-id">Copy ID</button></div>
+            </div>
+        </section>
+    </main>
+    <script>
+        // Dark Mode Toggle
+        const toggleDarkMode = document.querySelector('.toggle-dark-mode');
+        toggleDarkMode.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggleDarkMode.textContent = document.body.classList.contains('dark-mode') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+        });
+
+        // Back to Top Button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('show', window.scrollY > 300);
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Show/Hide Custom Category Input
+        const categorySelect = document.querySelector('#category');
+        const customCategoryGroup = document.querySelector('#custom-category-group');
+        categorySelect.addEventListener('change', () => {
+            customCategoryGroup.style.display = categorySelect.value === 'Custom Category' ? 'block' : 'none';
+        });
+
+        // Copy ID Functionality
+        document.querySelectorAll('.copy-id').forEach(button => {
+            button.addEventListener('click', () => {
+                const idText = button.previousElementSibling.textContent.replace('ID: ', '');
+                navigator.clipboard.writeText(idText).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => button.textContent = 'Copy ID', 2000);
+                });
+            });
+        });
+
+        // Form Submission (Placeholder - No Backend)
+        const capeForm = document.querySelector('#cape-form');
+        capeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Cape added! (Note: This is a frontend-only demo, so the cape is not actually saved.)');
+            capeForm.reset();
+            customCategoryGroup.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
